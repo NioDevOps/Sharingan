@@ -1,0 +1,17 @@
+[Unit]
+Description=SQE Sharingan
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/data/app/sqe_sharingan/sharingan.pid
+ExecStart=/data/app/sqe_sharingan/bin/start.sh
+ExecStop=/data/app/sqe_sharingan/bin/stop.sh
+PrivateTmp=true
+SuccessExitStatus=143
+TimeoutStartSec=500
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

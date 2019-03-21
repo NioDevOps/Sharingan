@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="pattern" value="[ %p ] %d [%X{request_id}] [%X{X-B3-TraceId}] %c{1.}:%L - %X{module}%msg%n"/>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+        <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="logs/info.log" filePattern="logs/%d{yyyy-MM-dd-HH}.log">
+            <DefaultRolloverStrategy max="360"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <PatternLayout pattern="${pattern}"/>
+        </RollingRandomAccessFile>
+        <Async name="Async">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Async"/>
+        </Root>
+    </Loggers>
+</Configuration>
